@@ -1,0 +1,100 @@
+package linkedlistsqueue;
+
+public class LinkedListsQueue
+{
+
+    public static void main(String[] args)
+    {
+        Queue wl = new Queue();
+        
+        wl.enqueue(new Person("Ross"));
+        wl.enqueue(new Person("Bill"));
+        wl.enqueue(new Person("Mary"));
+        wl.enqueue(new Person("Jane"));
+
+        wl.display();
+        
+        System.out.println("==========================");
+        
+        Person x = wl.dequeue();
+        
+        if (x != null)
+          System.out.println("Dequeued " + x.name);
+        
+        x = wl.dequeue();
+        if (x != null)
+          System.out.println("Dequeued " + x.name);
+        
+        x = wl.dequeue();
+        if (x != null)
+          System.out.println("Dequeued " + x.name);
+        
+        wl.display();
+    }   
+}
+
+// Person to put in queue
+
+package linkedlistsqueue;
+
+public class Person
+{
+    public String name;
+    public Person link;
+    
+    Person() { name = "Undefined"; link = null; }
+    Person(String n) { name = n; link = null; }   
+}
+
+// Queue of people
+
+package linkedlistsqueue;
+
+public class Queue
+{
+    private Person front;
+    private Person tail;
+    
+    Queue() { front = tail = null; }
+    
+    public void enqueue(Person p)
+    {
+        if (front == null)       // empty queue; tail better be null as well!
+        {
+            front = tail = p;
+            return;
+        }
+        
+        // one or more in queue, the ops are the same:
+        
+        tail.link = p;
+        tail = p;
+    }
+    
+    public Person dequeue()
+    {
+        if (front == null) return null;   // empty queue
+        
+        if (front == tail)		// only one element
+        {
+            Person temp = front;
+            front = tail = null;
+            return temp;
+        }
+        
+        Person temp = front;		// two or more
+        front = front.link;
+        return temp;
+    }
+    
+    public void display()
+    {
+        Person tmp = front;
+        
+        while (tmp != null)
+        {
+            System.out.println(tmp.name);
+            tmp = tmp.link;
+        }
+    }
+}
